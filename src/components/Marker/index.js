@@ -1,3 +1,3 @@
-import Markers from './Markers'
+import Markers as Marker from './Markers'
 
-export default Markers
+export default Marker

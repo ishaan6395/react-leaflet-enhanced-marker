@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Marker } from 'react-leaflet'
+import { Marker as M } from 'react-leaflet'
 import L from 'leaflet'
 import ReactDOMServer from 'react-dom/server'
 import { createIcon, defaultMarker, imageIcon, extractImagePath } from './Utilities/IconUtils'
 import areEqual from 'fbjs/lib/areEqual'
 
-class Markers extends Component {
+class Marker extends Component {
   state = {
     zoom: '100%',
     defaultHeight: 20,
@@ -52,7 +52,7 @@ class Markers extends Component {
     const { props } = this.props.icon
     const { highlight } = this.props
     return (
-      <Marker
+      <M
         ref={e => (this.markerRef = e)}
         {...props}
         {...this.props}
@@ -76,4 +76,4 @@ class Markers extends Component {
   }
 }
 
-export default Markers
+export default Marker

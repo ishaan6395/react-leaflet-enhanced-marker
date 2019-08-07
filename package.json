@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --config=config/webpack.dev.js",
     "build": "webpack-dev-server --config=config/webpack.dev.js",
-    "transpile": "babel ./src/components/Marker/Markers.js --out-file lib/Markers.js"
+    "transpile": "babel ./src/components/Marker/Markers.js --out-file lib/Markers.js",
+    "transpile1": "babel ./src/components/Marker/Utilities/IconUtils.js --out-file lib/Utilities/IconUtils.js"
   },
   "keywords": [],
   "author": "Ishaan Thakker",
