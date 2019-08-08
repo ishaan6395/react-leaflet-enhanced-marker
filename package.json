@@ -9,7 +9,16 @@
     "transpile": "babel ./src/components/Marker/Markers.js --out-file lib/Markers.js",
     "transpile1": "babel ./src/components/Marker/Utilities/IconUtils.js --out-file lib/Utilities/IconUtils.js"
   },
-  "keywords": [],
+  "keywords": [
+    "react-leaflet",
+    "react leaflet",
+    "leaflet",
+    "dynamic",
+    "dynamicmarker",
+    "marker",
+    "react-marker",
+    "reactmarker"
+  ],
   "author": "Ishaan Thakker",
   "license": "MIT",
   "peerDependencies": {
