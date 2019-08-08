@@ -29,7 +29,6 @@ class MarkerExample extends Component {
   render() {
     return (
       <div>
-        
         <Map center={this.state.center} zoom={this.state.zoom}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -72,16 +71,41 @@ class MapExample extends Component {
   };
 
   render() {
-    const reactComponent = <div />;
     return (
       <div>
-        {console.log(reactComponent)}
         <Map center={this.state.center} zoom={this.state.zoom}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
           <Marker icon={<ReactComponent/>} position={this.state.center} />
+        </Map>
+      </div>
+    );
+  }
+}
+```
+
+Using **react-leaflet-enhanced-marker** to render Image markers
+
+```javascript
+import img from './imagePath'
+
+class MapExample extends Component {
+  state = {
+    center: [32, -97],
+    zoom: 6
+  };
+
+  render() {
+    return (
+      <div>
+        <Map center={this.state.center} zoom={this.state.zoom}>
+          <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+          />
+          <Marker icon={<img src={img} style={{width:'100'}} />} position={this.state.center} />
         </Map>
       </div>
     );
