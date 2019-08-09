@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
 import Markers from './Marker/Markers'
-import img from './testimg.jpg'
+
 class Main extends Component {
   state = {
     count: 0
