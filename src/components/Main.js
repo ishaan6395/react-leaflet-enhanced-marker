@@ -9,7 +9,6 @@ class Main extends Component {
   render() {
     return (
       <Fragment>
-        <div>ishaan is here</div>
         <Map style={{ height: '700px', width: '700px', border: '0px' }} center={[32, -96]} zoom={6}>
           <TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
 
