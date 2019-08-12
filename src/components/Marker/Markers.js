@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Marker as M } from 'react-leaflet'
+import { Marker as LeafletMarker } from 'react-leaflet'
 import L from 'leaflet'
 import ReactDOMServer from 'react-dom/server'
-import { createIcon, defaultMarker, imageIcon, extractImagePath } from './Utilities/IconUtils'
+import { createIcon, defaultMarker, getChildrenProperties } from './Utilities/IconUtils'
 import areEqual from 'fbjs/lib/areEqual'
 
 class Marker extends Component {
@@ -12,13 +12,23 @@ class Marker extends Component {
     defaultWidth: 30,
     iconHeight: 50,
     iconWidth: 50,
-    properties: {}
+    properties: []
   }
 
   componentDidMount() {
     const { icon } = this.props
-    if (icon) {
-      this.setState({ properties: icon.props })
+    return
+    if (typeof icon === 'string' || typeof icon.props.children === 'string') return
+    if (icon.props.children instanceof Array) {
+      const children = icon.props.children.filter(child => typeof child === 'object')
+      if (children && typeof children !== 'string') {
+        const properties = getChildrenProperties(children, {})
+        this.setState({ properties })
+      }
+    } else {
+      const { children } = icon.props
+      const properties = getChildrenProperties(children)
+      this.setState({ properties })
     }
   }
 
@@ -49,25 +59,31 @@ class Marker extends Component {
     this.setState({ zoom: '100%', defaultHeight: 20, defaultWidth: 30 })
   }
   render() {
-    const { props } = this.props.icon
+    const iconProps = this.props.icon && this.props.icon.props
     const { highlight } = this.props
+    const { properties } = this.state
     return (
-      <M
+      <LeafletMarker
+        style={{
+          cursor: 'pointer'
+        }}
         ref={e => (this.markerRef = e)}
-        {...props}
+        {...iconProps}
+        {...properties}
         {...this.props}
         onClick={() => {
-          props && props.onClick && props.onClick()
-          props && this.props.onClick()
+          iconProps && iconProps.onClick && iconProps.onClick()
+          this.props && this.props.onClick && this.props.onClick()
+          properties && properties.onClick && properties.onClick()
         }}
         ref={ele => (this.markerRef = ele)}
         onMouseOver={() => {
           highlight && this.highlight()
-          props && props.onMouseOver && props.onMouseOver()
+          iconProps && iconProps.onMouseOver && iconProps.onMouseOver()
         }}
         onMouseOut={() => {
           highlight && this.removeHighlight()
-          props && props.onMouseOut && props.onMouseOut()
+          iconProps && iconProps.onMouseOut && iconProps.onMouseOut()
         }}
         position={[32.7767, -96.797]}
         icon={this.getIcon()}
