@@ -1,6 +1,6 @@
 {
   "name": "react-leaflet-enhanced-marker",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "This library will help render dynamic markers on leaflet maps easily",
   "main": "lib/Markers.js",
   "scripts": {
