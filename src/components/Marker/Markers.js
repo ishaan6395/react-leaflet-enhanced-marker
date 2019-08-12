@@ -12,22 +12,24 @@ class Marker extends Component {
     defaultWidth: 30,
     iconHeight: 50,
     iconWidth: 50,
-    properties: []
+    properties: {}
   }
 
   componentDidMount() {
     const { icon } = this.props
-    return
+
     if (typeof icon === 'string' || typeof icon.props.children === 'string') return
     if (icon.props.children instanceof Array) {
       const children = icon.props.children.filter(child => typeof child === 'object')
       if (children && typeof children !== 'string') {
-        const properties = getChildrenProperties(children, {})
+        const properties = getChildrenProperties(children)
+        console.log(properties)
         this.setState({ properties })
       }
     } else {
       const { children } = icon.props
       const properties = getChildrenProperties(children)
+
       this.setState({ properties })
     }
   }
