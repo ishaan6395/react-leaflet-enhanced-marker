@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Marker as M } from 'react-leaflet'
+import { Marker as LeafletMarker } from 'react-leaflet'
 import L from 'leaflet'
 import ReactDOMServer from 'react-dom/server'
 import { createIcon, defaultMarker, getChildrenProperties } from './Utilities/IconUtils'
@@ -17,6 +17,7 @@ class Marker extends Component {
 
   componentDidMount() {
     const { icon } = this.props
+    return
     if (typeof icon === 'string' || typeof icon.props.children === 'string') return
     if (icon.props.children instanceof Array) {
       const children = icon.props.children.filter(child => typeof child === 'object')
@@ -58,37 +59,35 @@ class Marker extends Component {
     this.setState({ zoom: '100%', defaultHeight: 20, defaultWidth: 30 })
   }
   render() {
-    const { props: iconProps } = this.props.icon
+    const iconProps = this.props.icon && this.props.icon.props
     const { highlight } = this.props
     const { properties } = this.state
     return (
-      <React.Fragment>
-        <M
-          style={{
-            cursor: 'pointer'
-          }}
-          ref={e => (this.markerRef = e)}
-          {...iconProps}
-          {...properties}
-          {...this.props}
-          onClick={() => {
-            iconProps && iconProps.onClick && iconProps.onClick()
-            this.props && this.props.onClick && this.props.onClick()
-            properties && properties.onClick && properties.onClick()
-          }}
-          ref={ele => (this.markerRef = ele)}
-          onMouseOver={() => {
-            highlight && this.highlight()
-            iconProps && iconProps.onMouseOver && iconProps.onMouseOver()
-          }}
-          onMouseOut={() => {
-            highlight && this.removeHighlight()
-            iconProps && iconProps.onMouseOut && iconProps.onMouseOut()
-          }}
-          position={[32.7767, -96.797]}
-          icon={this.getIcon()}
-        />
-      </React.Fragment>
+      <LeafletMarker
+        style={{
+          cursor: 'pointer'
+        }}
+        ref={e => (this.markerRef = e)}
+        {...iconProps}
+        {...properties}
+        {...this.props}
+        onClick={() => {
+          iconProps && iconProps.onClick && iconProps.onClick()
+          this.props && this.props.onClick && this.props.onClick()
+          properties && properties.onClick && properties.onClick()
+        }}
+        ref={ele => (this.markerRef = ele)}
+        onMouseOver={() => {
+          highlight && this.highlight()
+          iconProps && iconProps.onMouseOver && iconProps.onMouseOver()
+        }}
+        onMouseOut={() => {
+          highlight && this.removeHighlight()
+          iconProps && iconProps.onMouseOut && iconProps.onMouseOut()
+        }}
+        position={[32.7767, -96.797]}
+        icon={this.getIcon()}
+      />
     )
   }
 }
