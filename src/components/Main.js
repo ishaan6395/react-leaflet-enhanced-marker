@@ -12,14 +12,7 @@ class Main extends Component {
         <Map style={{ height: '700px', width: '700px', border: '0px' }} center={[32, -96]} zoom={6}>
           <TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
 
-          <Markers
-            icon={
-              <div>
-                <div onClick={() => alert('here')}>ishaan is here</div>
-              </div>
-            }
-            highlight
-          />
+          <Markers onClick={() => alert('z')} position={[32, -97]} highlight />
         </Map>
       </Fragment>
     )

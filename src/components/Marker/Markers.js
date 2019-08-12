@@ -17,7 +17,7 @@ class Marker extends Component {
 
   componentDidMount() {
     const { icon } = this.props
-
+    if (!icon) return
     if (typeof icon === 'string' || typeof icon.props.children === 'string') return
     if (icon.props.children instanceof Array) {
       const children = icon.props.children.filter(child => typeof child === 'object')
@@ -62,7 +62,7 @@ class Marker extends Component {
   }
   render() {
     const iconProps = this.props.icon && this.props.icon.props
-    const { highlight } = this.props
+    const { highlight, position } = this.props
     const { properties } = this.state
     return (
       <LeafletMarker
@@ -87,7 +87,7 @@ class Marker extends Component {
           highlight && this.removeHighlight()
           iconProps && iconProps.onMouseOut && iconProps.onMouseOut()
         }}
-        position={[32.7767, -96.797]}
+        position={position}
         icon={this.getIcon()}
       />
     )
