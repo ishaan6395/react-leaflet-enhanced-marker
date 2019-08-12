@@ -21,3 +21,26 @@ export const defaultMarker = (height = 20, width = 30) =>
     iconSize: new L.Point(height, width)
     //className: 'dummy'
   })
+
+export const getChildrenProperties = children => {
+  if (!children) {
+    return
+  }
+  const properties = {}
+  const neededProps = ['onClick', 'onMouseOver', 'onHover', 'onHighlight', 'onMouseOut']
+
+  if (children instanceof Array) {
+    children.forEach(child => {
+      const childProps = child.props
+      neededProps.forEach(prop => {
+        if (childProps[prop]) properties[prop] = childProps[prop]
+      })
+    })
+  } else {
+    const { props: childProps } = children
+    neededProps.forEach(prop => {
+      if (childProps[prop]) properties[prop] = childProps[prop]
+    })
+  }
+  return properties
+}

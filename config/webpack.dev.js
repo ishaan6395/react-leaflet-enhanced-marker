@@ -1,7 +1,7 @@
 const path = require('path')
 module.exports = {
   entry: {
-    main: ['babel-polyfill', './lib/Markers.js']
+    main: ['babel-polyfill', './src']
   },
   mode: 'development',
   output: {

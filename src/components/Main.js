@@ -14,15 +14,10 @@ class Main extends Component {
           <TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
 
           <Markers
-            onClick={() => console.log('here')}
             icon={
-              <img
-                onClick={() => alert('here')}
-                src={img}
-                style={{
-                  width: '100'
-                }}
-              />
+              <div>
+                <img onClick={() => alert('i am here')} src={img} style={{ width: '100' }} />
+              </div>
             }
             highlight
           />
