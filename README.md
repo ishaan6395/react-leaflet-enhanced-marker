@@ -4,9 +4,8 @@
 
 This library will help render dynamic markers on Leaflet Map. The marker can be :-
   - A simple String
-  - A simple static React Component
+  - A React Component
   - An Image
-  - A dynamic React Component 
 
 It works with any stable version of react-leaflet 1.x.x and 2.x.x.
 
