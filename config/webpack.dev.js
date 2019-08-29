@@ -1,16 +1,16 @@
-const path = require('path')
+const path = require("path");
 module.exports = {
   entry: {
-    main: ['babel-polyfill', './lib/Markers.js']
+    main: ["babel-polyfill", "./lib/Markers.js"]
   },
-  mode: 'development',
+  mode: "development",
   output: {
-    filename: '[name]-bundle.js',
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: '/'
+    filename: "[name]-bundle.js",
+    path: path.resolve(__dirname, "../dist"),
+    publicPath: "/"
   },
   devServer: {
-    contentBase: 'dist'
+    contentBase: "dist"
   },
   module: {
     rules: [
@@ -18,7 +18,7 @@ module.exports = {
         test: /\.js$/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: "babel-loader"
           }
         ],
         exclude: /node_modules/
@@ -27,17 +27,17 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: "style-loader"
           },
           {
-            loader: 'css-loaer'
+            loader: "css-loaer"
           }
         ]
       },
       {
         test: /\.(jpg|png|svg)$/,
-        loader: 'file-loader'
+        loader: "file-loader"
       }
     ]
   }
-}
+};

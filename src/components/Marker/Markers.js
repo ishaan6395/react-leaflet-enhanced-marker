@@ -1,97 +1,100 @@
-import React, { Component } from 'react'
-import { Marker as LeafletMarker } from 'react-leaflet'
-import L from 'leaflet'
-import ReactDOMServer from 'react-dom/server'
-import { createIcon, defaultMarker, getChildrenProperties } from './Utilities/IconUtils'
-import areEqual from 'fbjs/lib/areEqual'
+import React, { Component } from "react";
+import { Marker as LeafletMarker } from "react-leaflet";
+import L from "leaflet";
+import ReactDOMServer from "react-dom/server";
+import {
+  createIcon,
+  defaultMarker,
+  getChildrenProperties
+} from "./Utilities/IconUtils";
+import areEqual from "fbjs/lib/areEqual";
 
 class Marker extends Component {
   state = {
-    zoom: '100%',
+    zoom: "100%",
     defaultHeight: 20,
     defaultWidth: 30,
     iconHeight: 50,
     iconWidth: 50,
-    properties: {}
-  }
+    properties: {},
+    onClickProps: []
+  };
 
   componentDidMount() {
-    const { icon } = this.props
-    if (!icon) return
-    if (typeof icon === 'string' || typeof icon.props.children === 'string') return
-    if (icon.props.children instanceof Array) {
-      const children = icon.props.children.filter(child => typeof child === 'object')
-      if (children && typeof children !== 'string') {
-        const properties = getChildrenProperties(children)
-        console.log(properties)
-        this.setState({ properties })
-      }
-    } else {
-      const { children } = icon.props
-      const properties = getChildrenProperties(children)
-
-      this.setState({ properties })
-    }
+    const { icon } = this.props;
+    if (!icon) return;
+    const properties = getChildrenProperties(icon, this.state.properties);
+    this.setState({ properties });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !areEqual(this.state, nextState) || !areEqual(this.props, nextProps)
+    return !areEqual(this.state, nextState) || !areEqual(this.props, nextProps);
   }
 
   getIcon = () => {
-    const { icon } = this.props
-    const { zoom, defaultHeight, defaultWidth } = this.state
+    const { icon } = this.props;
+    const { zoom, defaultHeight, defaultWidth } = this.state;
 
     if (icon) {
-      const domContent = ReactDOMServer.renderToString(icon)
-      return createIcon(domContent, zoom)
+      const domContent = ReactDOMServer.renderToString(icon);
+      return createIcon(domContent, zoom);
     } else {
-      return defaultMarker(defaultHeight, defaultWidth)
+      return defaultMarker(defaultHeight, defaultWidth);
     }
-  }
+  };
 
   highlight = () => {
     this.setState({
-      zoom: '120%',
+      zoom: "120%",
       defaultHeight: 25,
       defaultWidth: 35
-    })
-  }
+    });
+  };
   removeHighlight = () => {
-    this.setState({ zoom: '100%', defaultHeight: 20, defaultWidth: 30 })
-  }
+    this.setState({ zoom: "100%", defaultHeight: 20, defaultWidth: 30 });
+  };
+  triggerProperty = property => {
+    const props = this.state.properties[property];
+    if (!props) return;
+
+    for (let i = 0; i < props.length; i++) {
+      props[i]();
+    }
+  };
   render() {
-    const iconProps = this.props.icon && this.props.icon.props
-    const { highlight, position } = this.props
-    const { properties } = this.state
+    const iconProps = this.props.icon && this.props.icon.props;
+    const { highlight, position } = this.props;
+    const { properties } = this.state;
     return (
       <LeafletMarker
         style={{
-          cursor: 'pointer'
+          cursor: "pointer"
         }}
         ref={e => (this.markerRef = e)}
         {...iconProps}
         {...properties}
         {...this.props}
         onClick={() => {
-          iconProps && iconProps.onClick && iconProps.onClick()
-          this.props && this.props.onClick && this.props.onClick()
-          properties && properties.onClick && properties.onClick()
+          iconProps && iconProps.onClick && iconProps.onClick();
+          this.props && this.props.onClick && this.props.onClick();
+          this.triggerProperty("onClick");
         }}
         ref={ele => (this.markerRef = ele)}
         onMouseOver={() => {
-          highlight && this.highlight()
-          iconProps && iconProps.onMouseOver && iconProps.onMouseOver()
+          highlight && this.highlight();
+          iconProps && iconProps.onMouseOver && iconProps.onMouseOver();
+          this.triggerProperty("onMouseOver");
         }}
         onMouseOut={() => {
-          highlight && this.removeHighlight()
-          iconProps && iconProps.onMouseOut && iconProps.onMouseOut()
+          highlight && this.removeHighlight();
+          iconProps && iconProps.onMouseOut && iconProps.onMouseOut();
+          this.triggerProperty("onMouseOut");
         }}
         position={position}
         icon={this.getIcon()}
       />
-    )
+    );
   }
 }
 
-export default Marker
+export default Marker;
