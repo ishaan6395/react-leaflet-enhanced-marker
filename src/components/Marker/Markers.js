@@ -83,11 +83,13 @@ class Marker extends Component {
         onMouseOver={() => {
           highlight && this.highlight();
           iconProps && iconProps.onMouseOver && iconProps.onMouseOver();
+          this.props && this.props.onMouseOver && this.props.onMouseOver();
           this.triggerProperty("onMouseOver");
         }}
         onMouseOut={() => {
           highlight && this.removeHighlight();
           iconProps && iconProps.onMouseOut && iconProps.onMouseOut();
+          this.props && this.props.onMouseOut && this.props.onMouseOut();
           this.triggerProperty("onMouseOut");
         }}
         position={position}

@@ -16,7 +16,13 @@ class Main extends Component {
         >
           <TileLayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
 
-          <Markers onClick={() => alert("z")} position={[32, -97]} highlight />
+          <Markers
+            onMouseOver={() => console.log("in")}
+            onMouseOut={() => console.log("out")}
+            position={[32, -97]}
+            highlight
+            icon={<div>ishaan is here</div>}
+          />
         </Map>
       </Fragment>
     );
