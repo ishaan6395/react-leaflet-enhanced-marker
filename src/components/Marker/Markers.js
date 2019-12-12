@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Marker as LeafletMarker } from "react-leaflet";
 import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
@@ -7,9 +7,8 @@ import {
   defaultMarker,
   getChildrenProperties
 } from "./Utilities/IconUtils";
-import areEqual from "fbjs/lib/areEqual";
 
-class Marker extends Component {
+class Marker extends PureComponent {
   state = {
     zoom: "100%",
     defaultHeight: 20,
@@ -25,10 +24,6 @@ class Marker extends Component {
     if (!icon) return;
     const properties = getChildrenProperties(icon, this.state.properties);
     this.setState({ properties });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !areEqual(this.state, nextState) || !areEqual(this.props, nextProps);
   }
 
   getIcon = () => {
