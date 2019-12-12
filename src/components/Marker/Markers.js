@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
 import { Marker as LeafletMarker } from "react-leaflet";
-import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import {
   createIcon,
@@ -37,7 +36,6 @@ class Marker extends PureComponent {
       return defaultMarker(defaultHeight, defaultWidth);
     }
   };
-
   highlight = () => {
     this.setState({
       zoom: "120%",
@@ -56,39 +54,40 @@ class Marker extends PureComponent {
       props[i]();
     }
   };
+
   render() {
     const iconProps = this.props.icon && this.props.icon.props;
     const { highlight, position } = this.props;
     const { properties } = this.state;
+
     return (
       <LeafletMarker
         style={{
           cursor: "pointer"
         }}
-        ref={e => (this.markerRef = e)}
         {...iconProps}
         {...properties}
         {...this.props}
-        onClick={() => {
-          iconProps && iconProps.onClick && iconProps.onClick();
-          this.props && this.props.onClick && this.props.onClick();
-          this.triggerProperty("onClick");
-        }}
         ref={ele => (this.markerRef = ele)}
-        onMouseOver={() => {
-          highlight && this.highlight();
-          iconProps && iconProps.onMouseOver && iconProps.onMouseOver();
-          this.props && this.props.onMouseOver && this.props.onMouseOver();
-          this.triggerProperty("onMouseOver");
-        }}
-        onMouseOut={() => {
-          highlight && this.removeHighlight();
-          iconProps && iconProps.onMouseOut && iconProps.onMouseOut();
-          this.props && this.props.onMouseOut && this.props.onMouseOut();
-          this.triggerProperty("onMouseOut");
-        }}
         position={position}
         icon={this.getIcon()}
+        onClick={(event) => {
+          iconProps && iconProps.onClick && iconProps.onClick();
+          this.props && this.props.onClick && this.props.onClick(event);
+          this.triggerProperty("onClick");
+        }}
+        onMouseOver={(event) => {
+          highlight && this.highlight();
+          iconProps && iconProps.onMouseOver && iconProps.onMouseOver();
+          this.props && this.props.onMouseOver && this.props.onMouseOver(event);
+          this.triggerProperty("onMouseOver");
+        }}
+        onMouseOut={(event) => {
+          highlight && this.removeHighlight();
+          iconProps && iconProps.onMouseOut && iconProps.onMouseOut();
+          this.props && this.props.onMouseOut && this.props.onMouseOut(event);
+          this.triggerProperty("onMouseOut");
+        }}
       />
     );
   }
