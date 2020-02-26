@@ -25,7 +25,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "leaflet": "^1.5.1",
-    "react-leaflet": "^2.4.0"
+    "react-leaflet": "^2.4.0",
+    "fbjs": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
