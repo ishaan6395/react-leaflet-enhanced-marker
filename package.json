@@ -1,6 +1,6 @@
 {
   "name": "react-leaflet-enhanced-marker",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "This library will help render dynamic markers on leaflet maps easily",
   "main": "lib/Markers.js",
   "scripts": {
@@ -25,7 +25,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "leaflet": "^1.5.1",
-    "react-leaflet": "^2.4.0"
+    "react-leaflet": "^2.4.0",
+    "fbjs": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
