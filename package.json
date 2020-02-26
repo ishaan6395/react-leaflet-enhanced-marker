@@ -58,7 +58,9 @@
   "directories": {
     "lib": "lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fbjs": "^1.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ishaan6395/react-leaflet-enhanced-marker.git"
